@@ -47,6 +47,8 @@ unit :: Unit
 ($) :: forall a b. (a -> b) -> a -> b
 ```
 
+associativity: **right-associative**, precedence: **0**
+
 Applies a function to its argument.
 
 ```purescript
@@ -67,6 +69,8 @@ left: `a $ b $ c $ d x = a $ (b $ (c $ (d $ x))) = a (b (c (d x)))`
 ``` purescript
 (#) :: forall a b. a -> (a -> b) -> b
 ```
+
+associativity: **left-associative**, precedence: **1**
 
 Applies an argument to a function.
 
@@ -164,11 +168,15 @@ with `(<<<)` defined as function composition.
 (<<<) :: forall a b c d. (Semigroupoid a) => a c d -> a b c -> a b d
 ```
 
+associativity: **right-associative**, precedence: **9**
+
 #### `(>>>)`
 
 ``` purescript
 (>>>) :: forall a b c d. (Semigroupoid a) => a b c -> a c d -> a b d
 ```
+
+associativity: **right-associative**, precedence: **9**
 
 Forwards composition, or `(<<<)` with its arguments reversed.
 
@@ -224,11 +232,15 @@ Instances must satisfy the following laws:
 (<$>) :: forall f a b. (Functor f) => (a -> b) -> f a -> f b
 ```
 
+associativity: **left-associative**, precedence: **4**
+
 #### `(<#>)`
 
 ``` purescript
 (<#>) :: forall f a b. (Functor f) => f a -> (a -> b) -> f b
 ```
+
+associativity: **left-associative**, precedence: **1**
 
 `(<#>)` is `(<$>)` with its arguments reversed. For example:
 
@@ -296,6 +308,8 @@ Formally, `Apply` represents a strong lax semi-monoidal endofunctor.
 ``` purescript
 (<*>) :: forall f a b. (Apply f) => f (a -> b) -> f a -> f b
 ```
+
+associativity: **left-associative**, precedence: **4**
 
 #### `Applicative`
 
@@ -402,6 +416,8 @@ do x <- m1
 (>>=) :: forall m a b. (Bind m) => m a -> (a -> m b) -> m b
 ```
 
+associativity: **left-associative**, precedence: **1**
+
 #### `Monad`
 
 ``` purescript
@@ -492,6 +508,8 @@ concatenation.
 (<>) :: forall s. (Semigroup s) => s -> s -> s
 ```
 
+associativity: **right-associative**, precedence: **5**
+
 `(<>)` is an alias for `append`.
 
 #### `(++)`
@@ -499,6 +517,8 @@ concatenation.
 ``` purescript
 (++) :: forall s. (Semigroup s) => s -> s -> s
 ```
+
+associativity: **right-associative**, precedence: **5**
 
 `(++)` is an alias for `append`.
 
@@ -542,6 +562,8 @@ Instances must satisfy the following laws:
 (+) :: forall a. (Semiring a) => a -> a -> a
 ```
 
+associativity: **left-associative**, precedence: **6**
+
 `(+)` is an alias for `add`.
 
 #### `(*)`
@@ -549,6 +571,8 @@ Instances must satisfy the following laws:
 ``` purescript
 (*) :: forall a. (Semiring a) => a -> a -> a
 ```
+
+associativity: **left-associative**, precedence: **7**
 
 `(*)` is an alias for `mul`.
 
@@ -579,6 +603,8 @@ laws:
 ``` purescript
 (-) :: forall a. (Ring a) => a -> a -> a
 ```
+
+associativity: **left-associative**, precedence: **6**
 
 `(-)` is an alias for `sub`.
 
@@ -616,6 +642,8 @@ laws:
 ``` purescript
 (/) :: forall a. (ModuloSemiring a) => a -> a -> a
 ```
+
+associativity: **left-associative**, precedence: **7**
 
 `(/)` is an alias for `div`.
 
@@ -693,6 +721,8 @@ The `Eq` type class represents types which support decidable equality.
 (==) :: forall a. (Eq a) => a -> a -> Boolean
 ```
 
+associativity: **non-associative**, precedence: **4**
+
 `(==)` is an alias for `eq`.
 
 #### `(/=)`
@@ -700,6 +730,8 @@ The `Eq` type class represents types which support decidable equality.
 ``` purescript
 (/=) :: forall a. (Eq a) => a -> a -> Boolean
 ```
+
+associativity: **non-associative**, precedence: **4**
 
 #### `Ordering`
 
@@ -759,6 +791,8 @@ The `Ord` type class represents types which support comparisons.
 (<) :: forall a. (Ord a) => a -> a -> Boolean
 ```
 
+associativity: **left-associative**, precedence: **4**
+
 Test whether one value is _strictly less than_ another.
 
 #### `(>)`
@@ -766,6 +800,8 @@ Test whether one value is _strictly less than_ another.
 ``` purescript
 (>) :: forall a. (Ord a) => a -> a -> Boolean
 ```
+
+associativity: **left-associative**, precedence: **4**
 
 Test whether one value is _strictly greater than_ another.
 
@@ -775,6 +811,8 @@ Test whether one value is _strictly greater than_ another.
 (<=) :: forall a. (Ord a) => a -> a -> Boolean
 ```
 
+associativity: **left-associative**, precedence: **4**
+
 Test whether one value is _non-strictly less than_ another.
 
 #### `(>=)`
@@ -782,6 +820,8 @@ Test whether one value is _non-strictly less than_ another.
 ``` purescript
 (>=) :: forall a. (Ord a) => a -> a -> Boolean
 ```
+
+associativity: **left-associative**, precedence: **4**
 
 Test whether one value is _non-strictly greater than_ another.
 
@@ -853,6 +893,8 @@ laws:
 (||) :: forall a. (Lattice a) => a -> a -> a
 ```
 
+associativity: **right-associative**, precedence: **2**
+
 The `sup` operator.
 
 #### `(&&)`
@@ -860,6 +902,8 @@ The `sup` operator.
 ``` purescript
 (&&) :: forall a. (Lattice a) => a -> a -> a
 ```
+
+associativity: **right-associative**, precedence: **3**
 
 The `inf` operator.
 
@@ -976,5 +1020,6 @@ a human-readable `String` representation.
 While not required, it is recommended that for any expression `x`, the
 string `show x` be executable PureScript code which evaluates to the same
 value as the expression `x`.
+
 
 
