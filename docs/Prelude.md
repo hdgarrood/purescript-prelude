@@ -47,7 +47,7 @@ unit :: Unit
 ($) :: forall a b. (a -> b) -> a -> b
 ```
 
-**right-associative / precedence 0**
+_right-associative / precedence 0_
 
 Applies a function to its argument.
 
